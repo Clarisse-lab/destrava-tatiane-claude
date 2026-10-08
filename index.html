@@ -139,6 +139,9 @@ section{position:relative;padding:96px 0}
 .quote blockquote{position:relative;font-size:clamp(22px,2.4vw,28px);line-height:1.3;letter-spacing:-.02em;font-weight:500}
 .quote blockquote em{font-style:normal;color:var(--sand)}
 .quote .i{position:absolute;width:220px;height:220px;right:-60px;bottom:-60px;color:var(--white);opacity:.05}
+.by-t{position:relative;display:flex;align-items:center;gap:12px;margin-top:26px;padding-top:20px;border-top:1px solid rgba(247,249,246,.12);font-size:13.5px;color:rgba(247,249,246,.65);line-height:1.3}
+.by-t img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--teal)}
+.by-t b{display:block;color:var(--white);font-size:15px}
 .quote p{position:relative;margin-top:22px;color:rgba(247,249,246,.72);font-size:15.5px}
 .places{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
 .places span{font-size:13px;font-weight:600;padding:8px 14px;border-radius:99px;background:var(--white);border:1px solid #D5DEDB;color:var(--ink)}
@@ -275,7 +278,7 @@ section{position:relative;padding:96px 0}
 .price small{font-size:26px;font-weight:600;margin-top:14px}
 .price b{font-size:clamp(72px,8vw,96px);letter-spacing:-.05em;font-weight:700}
 .offer-r .inst{position:relative;margin-top:10px;font-size:17px;color:var(--sand);font-weight:600}
-.offer-r .once{position:relative;margin-top:4px;font-size:14px;color:rgba(247,249,246,.7)}
+.offer-r .once{position:relative;margin-top:10px;font-size:14px;color:rgba(247,249,246,.7)}
 .offer-r .btn{position:relative;margin-top:28px}
 .offer-r .safe{position:relative;display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:18px;font-size:13px;color:rgba(247,249,246,.75)}
 .offer-r .safe span{display:inline-flex;align-items:center;gap:6px}
@@ -289,13 +292,16 @@ section{position:relative;padding:96px 0}
 
 /* ---------- Seção 10: Tatiane ---------- */
 .s-about .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
-.about-card{position:relative;border-radius:26px;overflow:hidden;background:linear-gradient(160deg,#1F6E87 0%,var(--navy-800) 55%,var(--navy-950));padding:40px 36px;min-height:460px;display:flex;flex-direction:column;justify-content:space-between}
-.about-card .i{position:absolute;width:420px;height:420px;right:-150px;top:-120px;color:var(--teal);opacity:.12}
-.about-card .who{position:relative}
-.about-card .who b{display:block;font-size:34px;letter-spacing:-.03em;line-height:1.05}
-.about-card .who span{display:block;margin-top:8px;color:var(--teal-300);font-weight:500}
-.stats{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:40px}
-.stats div{padding:18px;border-radius:16px;background:rgba(11,26,42,.45);border:1px solid rgba(247,249,246,.12);font-size:13.5px;line-height:1.35;color:rgba(247,249,246,.72)}
+.about-photo{position:relative;margin:0;border-radius:26px;overflow:hidden;background:#2a2b2d;aspect-ratio:4/5;box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
+.about-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.about-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(11,26,42,.55) 72%,rgba(11,26,42,.95));pointer-events:none}
+.about-photo .who{position:absolute;z-index:1;left:30px;right:30px;bottom:26px}
+.about-photo .who b{display:block;font-size:32px;letter-spacing:-.03em;line-height:1.05}
+.about-photo .who span{display:block;margin-top:6px;color:var(--teal-300);font-weight:500}
+.about-photo .badge{position:absolute;z-index:1;top:18px;right:18px;width:48px;height:48px;padding:10px;border-radius:14px;background:rgba(11,26,42,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--teal);border:1px solid rgba(247,249,246,.15)}
+.about-photo .badge svg{width:100%;height:100%}
+.stats{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.stats div{padding:18px;border-radius:16px;background:rgba(247,249,246,.05);border:1px solid rgba(247,249,246,.12);font-size:13.5px;line-height:1.35;color:rgba(247,249,246,.72)}
 .stats b{display:block;font-size:28px;letter-spacing:-.03em;color:var(--sand);margin-bottom:4px}
 .s-about .txt p{margin-top:18px;color:rgba(247,249,246,.8);font-size:18px}
 .s-about .txt p strong{color:var(--white)}
@@ -360,7 +366,7 @@ footer .logo .i{width:26px;height:26px}
   .proofs--chat{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
   .cost-txt{grid-template-columns:1fr}
   .offer{grid-template-columns:1fr}
-  .about-card{min-height:0}
+  .about-col{max-width:520px}
 }
 @media (max-width:640px){
   body{font-size:16px}
@@ -386,7 +392,8 @@ footer .logo .i{width:26px;height:26px}
   .offer-l,.offer-r{padding:34px 22px}
   .guarantee{flex-direction:column;text-align:center;padding:26px 20px}
   .bonus article{padding:30px 22px}
-  .about-card{padding:32px 22px}
+  .about-photo .who{left:20px;right:20px;bottom:20px}
+  .about-photo .who b{font-size:27px}
   .stats b{font-size:23px}
   .s-final{padding:84px 0}
   .sticky-cta{display:flex}
@@ -497,6 +504,7 @@ footer .logo .i{width:26px;height:26px}
       <div class="quote">
         <svg class="i"><use href="#mp-icon"/></svg>
         <blockquote>Onde está o gargalo que <em>mais compromete o resultado</em> da operação e o que precisa ser solucionado antes de tudo?</blockquote>
+        <div class="by-t"><img src="assets/img/tatiane-avatar.webp" width="80" height="80" alt=""><span><b>Tatiane Resende</b>Estrategista de negócios</span></div>
       </div>
       <p class="callout">Agora, ela quer aplicar esse mesmo raciocínio ao seu negócio.</p>
       <div class="cta-row">
@@ -740,9 +748,12 @@ footer .logo .i{width:26px;height:26px}
 <section class="s-about dark">
   <div class="glow"></div>
   <div class="wrap grid" style="position:relative">
-    <div class="about-card rv">
-      <svg class="i"><use href="#mp-icon"/></svg>
-      <div class="who"><b>Tatiane Resende</b><span>Estrategista de negócios · Fundadora da Maphel</span></div>
+    <div class="about-col rv">
+      <figure class="about-photo">
+        <img src="assets/img/tatiane-resende.webp" width="900" height="1125" loading="lazy" alt="Tatiane Resende, estrategista de negócios e fundadora da Maphel">
+        <span class="badge" aria-hidden="true"><svg><use href="#mp-icon"/></svg></span>
+        <figcaption class="who"><b>Tatiane Resende</b><span>Estrategista de negócios · Fundadora da Maphel</span></figcaption>
+      </figure>
       <div class="stats">
         <div><b>R$4,4 bi</b>em contratos de empresas que ajudou a estruturar</div>
         <div><b>20 mi</b>de pessoas por ano recebidas pelas operações</div>
@@ -820,11 +831,11 @@ footer .logo .i{width:26px;height:26px}
    CONFIGURAÇÃO — edite aqui
    CHECKOUT_URL: link do checkout (Hotmart, Kiwify, Eduzz...).
    Enquanto estiver vazio, os botões rolam até a oferta.
-   INSTALLMENT: valor da parcela exibido em "Ou 12x de ...".
+   INSTALLMENT: valor da parcela (ex.: "R$30,72"). Vazio = linha "Ou 12x de" oculta.
    ========================================================= */
 var CONFIG = {
   CHECKOUT_URL: "",
-  INSTALLMENT: "R$XX,XX"
+  INSTALLMENT: ""
 };
 
 (function () {
@@ -835,7 +846,10 @@ var CONFIG = {
   if ((params.get("v") || "").toLowerCase() === "b") doc.body.setAttribute("data-variant", "b");
 
   // Parcela
-  doc.querySelectorAll(".js-installment").forEach(function (el) { el.textContent = CONFIG.INSTALLMENT; });
+  doc.querySelectorAll(".js-installment").forEach(function (el) {
+    if (CONFIG.INSTALLMENT) el.textContent = CONFIG.INSTALLMENT;
+    else el.closest(".inst").remove();
+  });
 
   // Checkout: repassa UTMs/parametros da página para o link do checkout
   if (CONFIG.CHECKOUT_URL) {

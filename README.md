@@ -12,7 +12,7 @@ No final do `index.html`, no bloco `CONFIG`:
 ```js
 var CONFIG = {
   CHECKOUT_URL: "",        // link do checkout (Hotmart, Kiwify, Eduzz...)
-  INSTALLMENT: "R$XX,XX"   // valor da parcela em "Ou 12x de ..."
+  INSTALLMENT: ""          // valor da parcela, ex.: "R$30,72" (vazio = linha "Ou 12x de" oculta)
 };
 ```
 
@@ -22,5 +22,5 @@ var CONFIG = {
 ## Estrutura
 - `index.html`: página completa (estilos e scripts embutidos)
 - `assets/fonts/`: DM Sans (fonte da identidade visual, hospedada localmente; licença OFL)
-- `assets/img/`: prints de prova social
+- `assets/img/`: foto da Tatiane e prints de prova social
 - `assets/maphel-icone.svg`, `assets/favicon.svg`: símbolo da marca
