@@ -149,16 +149,25 @@ section{position:relative;padding:96px 0}
 .s-list .grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
 .todo{position:relative;background:rgba(247,249,246,.06);border:1px solid rgba(247,249,246,.14);border-radius:var(--radius);padding:30px}
 .todo h3{font-size:24px}
-.todo ul{list-style:none;margin-top:20px;display:grid;gap:10px}
+.todo .vp{position:relative;height:392px;margin-top:20px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent,#000 8%,#000 72%,transparent);mask-image:linear-gradient(180deg,transparent,#000 8%,#000 72%,transparent)}
+.todo ul{list-style:none;display:grid;gap:10px}
+.todo.is-in ul.loop{animation:listUp 26s linear 2.2s infinite}
+.todo:hover ul.loop{animation-play-state:paused}
+@keyframes listUp{to{transform:translateY(calc(-50% - 5px))}}
+.todo li{opacity:0;transform:translateX(-18px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+.todo.is-in li{opacity:1;transform:none}
+.todo .count{position:absolute;top:26px;right:26px;display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:30px;padding:0 10px;border-radius:99px;background:rgba(242,224,173,.14);border:1px solid rgba(242,224,173,.35);color:var(--sand);font-size:13px;font-weight:700;font-variant-numeric:tabular-nums}
+.todo h3{padding-right:60px}
 .todo li{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;background:rgba(11,26,42,.35);font-weight:500;color:rgba(247,249,246,.9)}
 .todo li::before{content:"";flex:none;width:20px;height:20px;border-radius:6px;border:2px solid rgba(247,249,246,.35)}
-.todo li:nth-child(n+4){opacity:.75}
-.todo li:nth-child(n+6){opacity:.5}
-.todo .more{margin-top:14px;font-size:14px;color:rgba(247,249,246,.55);text-align:center;letter-spacing:.3em}
 .s-list .txt p{font-size:19px;color:rgba(247,249,246,.82);margin-top:18px}
 .s-list .txt p:first-child{margin-top:0}
-.s-list .txt .big{font-size:clamp(24px,2.6vw,32px);line-height:1.2;letter-spacing:-.02em;font-weight:700;color:var(--white);border-left:3px solid var(--sand);padding-left:20px;margin:26px 0}
+.s-list .txt .big span{background:linear-gradient(transparent 60%,rgba(242,224,173,.24) 60%) no-repeat 0 0/0% 100%;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size 1.3s cubic-bezier(.6,.1,.2,1) .5s}
+.s-list .txt .big.is-in span{background-size:100% 100%}
+.s-list .txt .big{position:relative;border-left:0!important;font-size:clamp(24px,2.6vw,32px);line-height:1.2;letter-spacing:-.02em;font-weight:700;color:var(--white);border-left:3px solid var(--sand);padding-left:20px;margin:26px 0}
 .s-list .txt .tm{color:var(--sand)}
+.s-list .txt .big::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px;background:var(--sand);transform:scaleY(0);transform-origin:top;transition:transform .8s cubic-bezier(.2,.8,.2,1) .2s}
+.s-list .txt .big.is-in::before{transform:none}
 
 /* ---------- Seção 4: Protocolo ---------- */
 .s-proto .grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:56px}
@@ -213,7 +222,19 @@ section{position:relative;padding:96px 0}
 
 /* ---------- Seção 7: Passos ---------- */
 .steps{position:relative;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:56px;counter-reset:s}
-.steps::before{content:"";position:absolute;top:27px;left:28px;right:calc((100% - 60px) / 4 - 28px);height:2px;background:repeating-linear-gradient(90deg,var(--petrol) 0 6px,transparent 6px 12px);opacity:.45}
+.steps::before{content:"";position:absolute;top:27px;left:28px;right:calc((100% - 60px) / 4 - 28px);height:2px;background:repeating-linear-gradient(90deg,var(--petrol) 0 6px,transparent 6px 12px);opacity:.45;transform:scaleX(0);transform-origin:left;transition:transform 1.8s cubic-bezier(.5,0,.2,1) .2s}
+.steps.is-in::before{transform:none}
+.steps .dot{transform:scale(.3);opacity:0;transition:transform .6s cubic-bezier(.3,1.6,.5,1),opacity .4s}
+.steps.is-in .dot{transform:none;opacity:1}
+.steps.is-in .dot{animation:stepGlow 8s ease-in-out infinite}
+@keyframes stepGlow{0%,22%,100%{background:var(--navy-900);box-shadow:0 0 0 8px var(--mist),0 0 0 8px rgba(20,111,138,0)}7%{background:var(--petrol);box-shadow:0 0 0 8px var(--mist),0 0 0 14px rgba(20,111,138,.28)}15%{background:var(--navy-900);box-shadow:0 0 0 8px var(--mist),0 0 0 22px rgba(20,111,138,0)}}
+.steps li:nth-child(1) .dot{transition-delay:.15s;animation-delay:2.4s}
+.steps li:nth-child(2) .dot{transition-delay:.65s;animation-delay:4.4s}
+.steps li:nth-child(3) .dot{transition-delay:1.15s;animation-delay:6.4s}
+.steps li:nth-child(4) .dot{transition-delay:1.65s;animation-delay:8.4s}
+.steps li>:not(.dot){opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.steps.is-in li>:not(.dot){opacity:1;transform:none}
+.steps li:nth-child(1)>:not(.dot){transition-delay:.35s}.steps li:nth-child(2)>:not(.dot){transition-delay:.85s}.steps li:nth-child(3)>:not(.dot){transition-delay:1.35s}.steps li:nth-child(4)>:not(.dot){transition-delay:1.85s}
 .steps li{position:relative}
 .steps .dot{position:relative;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--navy-900);color:var(--sand);font-weight:700;font-size:20px;box-shadow:0 0 0 8px var(--mist)}
 .steps small{display:block;margin-top:22px;font-size:12.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--petrol)}
@@ -224,19 +245,42 @@ section{position:relative;padding:96px 0}
 /* ---------- Seção 8: Bônus ---------- */
 .bonus{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:52px}
 .bonus article{position:relative;overflow:hidden;border-radius:22px;padding:36px 34px;background:linear-gradient(155deg,var(--navy-700),var(--navy-900) 60%);border:1px solid rgba(247,249,246,.1)}
-.bonus article::after{content:"";position:absolute;width:300px;height:300px;right:-120px;top:-120px;border-radius:50%;background:radial-gradient(circle,rgba(86,188,188,.35),transparent 70%)}
+.bonus article::after{content:"";position:absolute;width:300px;height:300px;right:-120px;top:-120px;border-radius:50%;background:radial-gradient(circle,rgba(86,188,188,.35),transparent 70%);animation:drift 12s ease-in-out infinite alternate;pointer-events:none}
+.bonus article:nth-child(2)::after{animation-delay:-6s}
+@keyframes drift{to{transform:translate(-140px,120px) scale(1.25)}}
+.bonus article{transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s}
+.bonus article.rv:nth-child(1){transform:translateX(-46px)}
+.bonus article.rv:nth-child(2){transform:translateX(46px);transition-delay:.15s}
+.bonus article.rv.is-in{transform:none}
+.bonus article:hover{border-color:rgba(86,188,188,.4);box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.bonus .tag{position:relative;overflow:hidden}
+.bonus .tag::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-20deg);animation:shine 4.5s ease-in-out 1.2s infinite}
+@keyframes shine{0%{left:-60%}22%,100%{left:130%}}
+.bonus li{opacity:0;transform:translateX(-12px);transition:opacity .5s ease,transform .5s ease}
+.bonus li svg{stroke-dasharray:22;stroke-dashoffset:22;transition:stroke-dashoffset .6s ease}
+.bonus article.is-in li{opacity:1;transform:none}
+.bonus article.is-in li svg{stroke-dashoffset:0}
+.bonus li:nth-child(1),.bonus li:nth-child(1) svg{transition-delay:.6s}
+.bonus li:nth-child(2),.bonus li:nth-child(2) svg{transition-delay:.85s}
+.bonus li:nth-child(3),.bonus li:nth-child(3) svg{transition-delay:1.1s}
 .bonus .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.22em;padding:7px 12px;border-radius:8px;background:var(--sand);color:var(--navy-900)}
 .bonus h3{font-size:clamp(24px,2.4vw,30px);margin-top:20px}
 .bonus p{margin-top:12px;color:rgba(247,249,246,.78)}
 .bonus ul{list-style:none;margin-top:16px;display:grid;gap:10px}
 .bonus li{display:flex;gap:12px;align-items:flex-start;color:rgba(247,249,246,.88)}
 .bonus li svg{flex:none;width:18px;height:18px;margin-top:4px;color:var(--teal)}
-.quad{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
-.quad span{padding:14px;border-radius:12px;font-weight:700;text-align:center;background:rgba(247,249,246,.07);border:1px solid rgba(247,249,246,.14)}
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px;perspective:600px}
+.quad span{opacity:0;transform:rotateX(-80deg);transform-origin:top;transition:opacity .5s ease,transform .7s cubic-bezier(.3,1.4,.5,1);animation:quadPulse 8s ease-in-out infinite;animation-play-state:paused;padding:14px;border-radius:12px;font-weight:700;text-align:center;background:rgba(247,249,246,.07);border:1px solid rgba(247,249,246,.14)}
 .quad span:nth-child(1){color:var(--sand)}
 .quad span:nth-child(2){color:var(--teal-300)}
 .quad span:nth-child(3){color:#F3A8A0}
 .quad span:nth-child(4){color:#B9C8F5}
+.bonus article.is-in .quad span{opacity:1;transform:none;animation-play-state:running}
+.quad span:nth-child(1){transition-delay:.7s;animation-delay:2s}
+.quad span:nth-child(2){transition-delay:.85s;animation-delay:4s}
+.quad span:nth-child(3){transition-delay:1s;animation-delay:6s}
+.quad span:nth-child(4){transition-delay:1.15s;animation-delay:8s}
+@keyframes quadPulse{0%,20%,100%{background:rgba(247,249,246,.07);border-color:rgba(247,249,246,.14)}8%{background:rgba(247,249,246,.16);border-color:currentColor}}
 .bonus .free{position:relative;margin-top:22px;font-size:14px;color:rgba(247,249,246,.6)}
 .bonus .free s{color:rgba(247,249,246,.45)}
 .bonus .free b{color:var(--sand)}
@@ -312,6 +356,17 @@ section{position:relative;padding:96px 0}
 .proofs{display:grid;gap:18px;align-items:start}
 .proofs--wide{grid-template-columns:1fr 1fr;margin-top:52px}
 .proofs--chat{grid-template-columns:repeat(3,1fr);margin-top:18px}
+.proof{transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease;}
+.proof.rv{transform:translateY(40px) scale(.96) rotate(var(--r,0deg))}
+.proof.rv.is-in{transform:rotate(var(--r,0deg))}
+.proof.rv.is-in:hover{transform:translateY(-6px) rotate(0deg);box-shadow:0 30px 60px -30px rgba(15,34,54,.55);transition-delay:0s!important}
+.proofs--wide .proof:nth-child(1){--r:-.6deg}.proofs--wide .proof:nth-child(2){--r:.6deg}
+.proofs--chat .proof:nth-child(1){--r:-.8deg}.proofs--chat .proof:nth-child(2){--r:.4deg}.proofs--chat .proof:nth-child(3){--r:-.4deg}
+.proofs--chat .proof.is-in img{animation:bob 7s ease-in-out infinite}
+.proofs--chat .proof:nth-child(2).is-in img{animation-delay:-2.3s}.proofs--chat .proof:nth-child(3).is-in img{animation-delay:-4.6s}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.s-proofs h2 .hl{background:linear-gradient(transparent 82%,rgba(20,111,138,.28) 82%) no-repeat 0 0/0% 100%;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size 1.2s cubic-bezier(.6,.1,.2,1) .5s}
+.s-proofs .is-in h2 .hl{background-size:100% 100%}
 .proof{margin:0;background:var(--white);border:1px solid #DCE4E2;border-radius:var(--radius);padding:10px;box-shadow:0 18px 40px -30px rgba(15,34,54,.4)}
 .proof img{width:100%;height:auto;border-radius:10px}
 .proof figcaption{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 8px 4px;font-size:14px;font-weight:600}
@@ -345,7 +400,7 @@ footer .logo .i{width:26px;height:26px}
 /* ---------- Reveal ---------- */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
 .rv.is-in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.rv,.todo li,.steps .dot,.steps li>*,.bonus li,.quad span{opacity:1!important;transform:none!important}.bonus li svg{stroke-dashoffset:0!important}.steps::before{transform:none!important}html{scroll-behavior:auto}}
 
 /* ---------- Responsivo ---------- */
 @media (max-width:980px){
@@ -380,6 +435,9 @@ footer .logo .i{width:26px;height:26px}
   .trust div{flex:1 1 40%}
   .trust b{font-size:22px}
   .quote{padding:38px 24px 28px}
+  .todo{padding:24px 20px}
+  .todo .vp{height:340px}
+  .todo .count{top:22px;right:20px}
   .areas{grid-template-columns:1fr}
   .deliv{grid-template-columns:1fr}
   .card--feat{grid-column:auto}
@@ -517,7 +575,9 @@ footer .logo .i{width:26px;height:26px}
   <div class="wrap grid">
     <div class="todo rv">
       <h3>Sua lista de melhorias pode ser quase infinita.</h3>
-      <ul>
+      <span class="count" aria-hidden="true">+<span class="js-count">0</span></span>
+      <div class="vp">
+      <ul class="js-loop">
         <li>Vender mais</li>
         <li>Autonomia da equipe</li>
         <li>Financeiro desorganizado</li>
@@ -526,13 +586,13 @@ footer .logo .i{width:26px;height:26px}
         <li>Falta de capacitação do time</li>
         <li>Melhoria da experiência do cliente</li>
       </ul>
-      <div class="more">• • •</div>
+      </div>
     </div>
-    <div class="txt rv">
-      <p>Toda empresa tem algo a melhorar e um problema alimenta o outro. Por isso, sair tentando resolver tudo ao mesmo tempo costuma gerar ainda mais trabalho e pouca mudança.</p>
-      <p>O <strong>Plano Destrava Empresa</strong> parte de outra lógica:</p>
-      <p class="big">encontrar primeiro os poucos pontos que estão puxando todo o resto para baixo.</p>
-      <p>É isso que o <strong class="tm">Protocolo dos Dois Gargalos™</strong> faz.</p>
+    <div class="txt">
+      <p class="rv">Toda empresa tem algo a melhorar e um problema alimenta o outro. Por isso, sair tentando resolver tudo ao mesmo tempo costuma gerar ainda mais trabalho e pouca mudança.</p>
+      <p class="rv" style="transition-delay:.12s">O <strong>Plano Destrava Empresa</strong> parte de outra lógica:</p>
+      <p class="big rv" style="transition-delay:.24s"><span>encontrar primeiro os poucos pontos que estão puxando todo o resto para baixo.</span></p>
+      <p class="rv" style="transition-delay:.36s">É isso que o <strong class="tm">Protocolo dos Dois Gargalos™</strong> faz.</p>
     </div>
   </div>
 </section>
@@ -642,11 +702,11 @@ footer .logo .i{width:26px;height:26px}
       <span class="eyebrow">Passo a passo</span>
       <h2>Veja como funciona</h2>
     </div>
-    <ol class="steps">
-      <li class="rv"><span class="dot">1</span><small>Passo 1</small><h3>Adquira o Plano Destrava Empresa.</h3></li>
-      <li class="rv"><span class="dot">2</span><small>Passo 2</small><h3>Responda ao diagnóstico das 8 áreas.</h3><p>Leva aproximadamente <strong>20 minutos</strong>.</p></li>
-      <li class="rv"><span class="dot">3</span><small>Passo 3</small><h3>Receba sua análise.</h3><p>Em até <strong>1 dia útil após o preenchimento</strong>, você recebe seu relatório com seus 2 gargalos prioritários e o plano personalizado.</p></li>
-      <li class="rv"><span class="dot">4</span><small>Passo 4</small><h3>Comece pelas poucas ações que realmente importam.</h3><p>Seu plano foi desenhado para os próximos <strong>30 dias</strong>, dividido em quatro semanas.</p><p>Os materiais ficam com você mesmo depois do período de execução.</p></li>
+    <ol class="steps" data-io>
+      <li><span class="dot">1</span><small>Passo 1</small><h3>Adquira o Plano Destrava Empresa.</h3></li>
+      <li><span class="dot">2</span><small>Passo 2</small><h3>Responda ao diagnóstico das 8 áreas.</h3><p>Leva aproximadamente <strong>20 minutos</strong>.</p></li>
+      <li><span class="dot">3</span><small>Passo 3</small><h3>Receba sua análise.</h3><p>Em até <strong>1 dia útil após o preenchimento</strong>, você recebe seu relatório com seus 2 gargalos prioritários e o plano personalizado.</p></li>
+      <li><span class="dot">4</span><small>Passo 4</small><h3>Comece pelas poucas ações que realmente importam.</h3><p>Seu plano foi desenhado para os próximos <strong>30 dias</strong>, dividido em quatro semanas.</p><p>Os materiais ficam com você mesmo depois do período de execução.</p></li>
     </ol>
   </div>
 </section>
@@ -777,11 +837,11 @@ footer .logo .i{width:26px;height:26px}
       <span class="eyebrow">Quem já trabalhou com a Tatiane</span>
       <h2>Clareza que destrava. <span class="hl">Direção que escala.</span></h2>
     </div>
-    <div class="proofs proofs--wide">
+    <div class="proofs proofs--wide" data-stagger="140">
       <figure class="proof rv"><img src="assets/img/prova-03-felipe.webp" width="984" height="336" loading="lazy" alt="Depoimento de Felipe Prado, advogado: Eu sabia advogar, mas o escritório vivia muito no improviso. A Tatiane olhou para o meu caso de verdade e apontou gargalos que eu não tinha conseguido enxergar sozinho — em processos, financeiro, equipe e planejamento. Não foi um diagnóstico genérico. Foi uma leitura prática e específica do meu negócio."><figcaption>Felipe Prado <span>via Instagram</span></figcaption></figure>
       <figure class="proof rv"><img src="assets/img/prova-05-sergio.webp" width="941" height="336" loading="lazy" alt="Depoimento de Sérgio Campos: A Tatiane tem uma capacidade muito boa de pegar um problema de gestão e transformar em uma ação simples, prática e possível de aplicar. Já testei sugestões dela no meu próprio negócio e vi diferença. Não é aquela orientação distante ou complicada demais. É um olhar objetivo, que ajuda o dono do negócio a entender onde mexer primeiro. Para quem está travado, isso tem muito valor."><figcaption>Sérgio Campos <span>via Instagram</span></figcaption></figure>
     </div>
-    <div class="proofs proofs--chat">
+    <div class="proofs proofs--chat" data-stagger="160">
       <figure class="proof rv"><img src="assets/img/prova-01-lucas.webp" width="608" height="635" loading="lazy" alt="Depoimento de Lucas Ribeiro por WhatsApp: Fui parceiro da Tatiane e estruturei vários negócios ao lado dela. Pouca gente lê um negócio inteiro como ela lê: operação, estratégia, números e a saída prática, tudo junto. Quando surgia um problema, ela sempre encontrava uma solução rápida e eficiente. A competência dela é de quem resolve, não de quem só analisa."><figcaption>Lucas Ribeiro <span>via WhatsApp</span></figcaption></figure>
       <figure class="proof rv"><img src="assets/img/prova-02-michelle.webp" width="608" height="760" loading="lazy" alt="Depoimento de Michelle Santana por WhatsApp: Convivi profissionalmente com a Tatiane por mais de uma década e vi de perto a diferença entre o que ela prometia e o que ela realmente entregava. E essa diferença sempre foi positiva. Ela é uma profissional que sustenta o que fala com método, profundidade e entrega concreta. Por isso, quando ela cria uma solução para ajudar empresas a ganharem clareza e destravarem sua operação, eu sei que não é algo superficial. É fruto de uma experiência real, construída na prática."><figcaption>Michelle Santana <span>via WhatsApp</span></figcaption></figure>
       <figure class="proof rv"><img src="assets/img/prova-04-carolina.webp" width="511" height="805" loading="lazy" alt="Depoimento de Carolina Carvalho por WhatsApp: O que mais fez diferença no trabalho da Tatiane foi a objetividade. Ela conseguiu olhar para as lojas, identificar o que estava prejudicando o resultado e transformar isso em ações práticas. Não era uma orientação distante da realidade. Era algo possível de aplicar na rotina. Pra quem já tentou curso, mentoria ou consultoria e continuou sem saber por onde começar, esse tipo de clareza muda muito."><figcaption>Carolina Carvalho <span>via WhatsApp</span></figcaption></figure>
@@ -874,7 +934,31 @@ var CONFIG = {
   var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
   }, { rootMargin: "0px 0px -8% 0px" }) : null;
-  doc.querySelectorAll(".rv, #tried").forEach(function (el) { io ? io.observe(el) : el.classList.add("is-in"); });
+  // Atrasos em cascata para grupos marcados com data-stagger
+  doc.querySelectorAll("[data-stagger]").forEach(function (g) {
+    var step = +g.getAttribute("data-stagger") || 120;
+    Array.prototype.forEach.call(g.children, function (c, i) { c.style.transitionDelay = (i * step) + "ms"; });
+  });
+
+  // Lista "quase infinita": entrada em cascata, depois rolagem contínua + contador
+  var loop = doc.querySelector(".js-loop");
+  if (loop) {
+    var items = Array.prototype.slice.call(loop.children);
+    items.forEach(function (li, i) { li.style.transitionDelay = (0.15 + i * 0.12) + "s"; });
+    items.forEach(function (li) {
+      var c = li.cloneNode(true); c.setAttribute("aria-hidden", "true"); c.style.transitionDelay = "0s"; loop.appendChild(c);
+    });
+    loop.classList.add("loop");
+    var todo = loop.closest(".todo"), counter = doc.querySelector(".js-count"), started = false;
+    new MutationObserver(function () {
+      if (started || !todo.classList.contains("is-in")) return; started = true;
+      var n = 0, base = items.length;
+      var t1 = setInterval(function () { counter.textContent = ++n; if (n >= base) { clearInterval(t1);
+        setInterval(function () { counter.textContent = ++n; }, 3700); } }, 130);
+    }).observe(todo, { attributes: true, attributeFilter: ["class"] });
+  }
+
+  doc.querySelectorAll(".rv, #tried, [data-io]").forEach(function (el) { io ? io.observe(el) : el.classList.add("is-in"); });
 
   // Mapa do Protocolo: 8 áreas interligadas, 2 gargalos em destaque
   var svg = doc.getElementById("proto-map"), NS = "http://www.w3.org/2000/svg";
