@@ -12,7 +12,8 @@ No final do `index.html`, no bloco `CONFIG`:
 ```js
 var CONFIG = {
   CHECKOUT_URL: "",        // link do checkout (Hotmart, Kiwify, Eduzz...)
-  INSTALLMENT: ""          // valor da parcela, ex.: "R$30,72" (vazio = linha "Ou 12x de" oculta)
+  INSTALLMENT: "",         // valor da parcela, ex.: "R$30,72" (vazio = linha "Ou 12x de" oculta)
+  INSTAGRAM: ""            // perfil oficial sem @, ex.: "maphel" (vazio = não aparece no rodapé)
 };
 ```
 
