@@ -10,6 +10,22 @@
 <meta property="og:title" content="Plano Destrava Empresa | Maphel">
 <meta property="og:description" content="Descubra os 2 gargalos que estão travando o crescimento da sua empresa e receba um plano personalizado de 30 dias.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '934694599048373');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=934694599048373&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
 <link rel="preload" href="assets/fonts/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:"DM Sans";font-style:normal;font-display:swap;font-weight:100 1000;src:url(assets/fonts/dm-sans-latin-ext-wght-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -790,7 +806,13 @@ var CONFIG = {
     try { url = new URL(CONFIG.CHECKOUT_URL); } catch (e) { url = null; }
     if (url) {
       params.forEach(function (v, k) { if (k !== "v" && !url.searchParams.has(k)) url.searchParams.set(k, v); });
-      doc.querySelectorAll(".js-cta").forEach(function (a) { a.href = url.toString(); });
+      doc.querySelectorAll(".js-cta").forEach(function (a) {
+        a.href = url.toString();
+        // Meta Pixel: clique que leva ao checkout
+        a.addEventListener("click", function () {
+          if (window.fbq) fbq("track", "InitiateCheckout", { value: 297, currency: "BRL" });
+        });
+      });
     }
   }
 
