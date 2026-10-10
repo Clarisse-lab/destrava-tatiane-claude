@@ -26,4 +26,4 @@ var CONFIG = {
 - `index.html`: página completa (estilos e scripts embutidos)
 - `assets/fonts/`: DM Sans (fonte da identidade visual, hospedada localmente; licença OFL)
 - `assets/img/`: foto da Tatiane e prints de prova social
-- `assets/maphel-icone.svg`, `assets/favicon.svg`: símbolo da marca
+- `assets/favicon.svg`: ícone da aba do navegador (letra "m" do nome maphel)
