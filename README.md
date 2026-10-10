@@ -14,8 +14,8 @@ var CONFIG = {
   CHECKOUT_URL: "",        // link do checkout (Hotmart, Kiwify, Eduzz...)
   INSTALLMENT: "",         // valor da parcela, ex.: "R$30,72" (vazio = linha "Ou 12x de" oculta)
   INSTAGRAM: "",           // perfil oficial sem @, ex.: "maphel" (vazio = não aparece no rodapé)
-  PRIVACY_URL: "",         // link da Política de Privacidade
-  TERMS_URL: ""            // link dos Termos de Uso
+  PRIVACY_URL: "/politica-de-privacidade/",  // link da Política de Privacidade
+  TERMS_URL: "/termos-de-uso/"               // link dos Termos de Uso
 };
 ```
 
@@ -24,6 +24,8 @@ var CONFIG = {
 
 ## Estrutura
 - `index.html`: página completa (estilos e scripts embutidos)
+- `politica-de-privacidade/` e `termos-de-uso/`: páginas legais (texto fornecido pela Maphel)
 - `assets/fonts/`: DM Sans (fonte da identidade visual, hospedada localmente; licença OFL)
 - `assets/img/`: foto da Tatiane e prints de prova social
+- `assets/maphel-wordmark.svg`: nome maphel usado nas páginas legais
 - `assets/favicon.svg`: ícone da aba do navegador (letra "m" do nome maphel)
