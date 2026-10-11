@@ -800,12 +800,32 @@ var CONFIG = {
     else el.closest(".inst").remove();
   });
 
+  // Preserva UTMs da campanha durante a visita (sem misturar campanhas).
+  var utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+  var storageKey = "destrava_campaign_utms";
+  var campaign = {};
+  try {
+    var saved = JSON.parse(sessionStorage.getItem(storageKey) || "{}");
+    if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+      utmKeys.forEach(function (k) { if (typeof saved[k] === "string") campaign[k] = saved[k]; });
+    }
+  } catch (e) { /* armazenamento indisponível */ }
+  if (utmKeys.some(function (k) { return params.has(k); })) {
+    campaign = {};
+    utmKeys.forEach(function (k) { campaign[k] = params.get(k) || ""; });
+    try { sessionStorage.setItem(storageKey, JSON.stringify(campaign)); } catch (e) {}
+  }
+
   // Checkout: repassa UTMs/parametros da página para o link do checkout
   if (CONFIG.CHECKOUT_URL) {
     var url;
     try { url = new URL(CONFIG.CHECKOUT_URL); } catch (e) { url = null; }
     if (url) {
       params.forEach(function (v, k) { if (k !== "v" && !url.searchParams.has(k)) url.searchParams.set(k, v); });
+      // Repassa UTMs de entrada recuperadas de outras páginas na mesma aba.
+      utmKeys.forEach(function (k) {
+        if (campaign[k] && !url.searchParams.has(k)) url.searchParams.set(k, campaign[k]);
+      });
       doc.querySelectorAll(".js-cta").forEach(function (a) {
         a.href = url.toString();
         // Meta Pixel: clique que leva ao checkout
